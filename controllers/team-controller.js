@@ -9,12 +9,9 @@ const getTeams = async (req, res, next) => {
 
   soqlQuery(
     conn,
-    'Contact',
+    'Baseball_Teams__c',
     {
-      conditions: {
-        Name: { $like: 'A%' }
-      },
-      fields: 'Name, Phone'
+      fields: 'Id, Name, Established__c, Photo__c'
     },
     (err, teams) => {
       if (err) {
@@ -25,8 +22,10 @@ const getTeams = async (req, res, next) => {
         res.json({
           teams: teams.map(team => {
             return {
-              Name: team.Name,
-              Phone: team.Phone
+              id: team.Id,
+              name: team.Name,
+              established: team.Established__c,
+              photo: team.Photo__c
             };
           })
         });
