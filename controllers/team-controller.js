@@ -11,7 +11,7 @@ const getTeams = async (req, res, next) => {
     conn,
     'Baseball_Teams__c',
     {
-      fields: 'Id, Name, Established__c, Photo__c'
+      fields: 'Id, Name, Established__c, Photo__c, Photo_Color__c'
     },
     (err, teams) => {
       if (err) {
@@ -25,7 +25,8 @@ const getTeams = async (req, res, next) => {
               id: team.Id,
               name: team.Name,
               established: team.Established__c,
-              photo: team.Photo__c
+              photo: team.Photo__c,
+              photoColor: team.Photo_Color__c
             };
           })
         });
