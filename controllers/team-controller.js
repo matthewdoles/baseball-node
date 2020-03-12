@@ -11,9 +11,11 @@ const getTeams = async (req, res, next) => {
     conn,
     'Baseball_Teams__c',
     {
-      fields: 'Id, Name, Established__c, Photo__c, Photo_Color__c'
+      fields: 'Id, Name, Established__c, Photo__c, Photo_Color__c',
+      sort: 'Name'
     },
     (err, teams) => {
+      console.log(teams);
       if (err) {
         return next(
           new HttpError('Cannot retrieve teams, please try again.', 500)
