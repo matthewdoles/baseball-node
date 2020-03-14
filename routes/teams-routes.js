@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.get('/', teamsController.getTeams);
 
+router.get('/affiliates', teamsController.getTeamsWithAffiliates);
+
 module.exports = router;
