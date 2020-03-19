@@ -1,5 +1,5 @@
 const { login, soqlQuery, soqlQueryWithChildren } = require("jsforce-patterns");
-const { customSort } = require('../util/custom-sort')
+const { customSort } = require("../util/custom-sort");
 const HttpError = require("../http-error");
 
 const getTeams = async (req, res, next) => {
@@ -12,7 +12,8 @@ const getTeams = async (req, res, next) => {
     conn,
     "Baseball_Teams__c",
     {
-      fields: "Id, Name, Established__c, Photo__c, Photo_Color__c, League__c",
+      fields:
+        "Id, Name, Established__c, Photo__c, Photo_Color__c, League__c, Conference__c, Division__c",
       sort: "Name"
     },
     (err, teams) => {
@@ -29,7 +30,9 @@ const getTeams = async (req, res, next) => {
               established: team.Established__c,
               photo: team.Photo__c,
               photoColor: team.Photo_Color__c,
-              league: team.League__c
+              league: team.League__c,
+              conference: team.Conference__c,
+              division: team.Division__c
             };
           })
         });
@@ -48,13 +51,15 @@ const getTeamsWithAffiliates = async (req, res, next) => {
     conn,
     "Baseball_Teams__c",
     {
-      fields: "Id, Name, Established__c, Photo__c, Photo_Color__c, League__c",
+      fields:
+        "Id, Name, Established__c, Photo__c, Photo_Color__c, League__c, Conference__c, Division__c",
       sort: "Name",
-      conditions: { League__c: "MLB", Name: "Tampa Bay Rays" }
+      conditions: { League__c: "MLB" }
     },
     "Affiliate__r",
     {
-      fields: "Id, Name, Established__c, Photo__c, Photo_Color__c, League__c",
+      fields:
+        "Id, Name, Established__c, Photo__c, Photo_Color__c, League__c, Conference__c, Division__c",
       sort: "Name"
     },
     (err, teams) => {
@@ -72,14 +77,18 @@ const getTeamsWithAffiliates = async (req, res, next) => {
             photo: team.Photo__c,
             photoColor: team.Photo_Color__c,
             league: team.League__c,
+            conference: team.Conference__c,
+            division: team.Division__c,
             affiliates: team.Affiliate__r.records.map(affiliate => {
               return {
                 id: affiliate.Id,
                 name: affiliate.Name,
                 established: affiliate.Established__c,
-                photo: affiliate.affiliate,
+                photo: affiliate.Photo__c,
                 photoColor: affiliate.Photo_Color__c,
-                league: affiliate.League__c
+                league: affiliate.League__c,
+                conference: team.Conference__c,
+                division: team.Division__c
               };
             })
           };
@@ -94,8 +103,7 @@ const getTeamsWithAffiliates = async (req, res, next) => {
           });
         });
 
-        res.json({teams: results});
-
+        res.json({ teams: results });
       }
     }
   );
