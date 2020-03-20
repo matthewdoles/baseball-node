@@ -27,6 +27,7 @@ const getTeams = async (req, res, next) => {
             return {
               id: team.Id,
               name: team.Name,
+              url: team.Name.replace(/\s/g, ""),
               established: team.Established__c,
               photo: team.Photo__c,
               photoColor: team.Photo_Color__c,
