@@ -13,7 +13,7 @@ const getTeams = async (req, res, next) => {
     "Baseball_Teams__c",
     {
       fields:
-        "Id, Name, Established__c, Photo__c, Photo_Color__c, League__c, Conference__c, Division__c",
+        "Id, Name, Established__c, Photo__c, Photo_Color__c, League__c, Conference__c, Division__c, Stadium__c, Stadium_Location__c, Stadium_Address__c, Capacity__c",
       sort: "Name"
     },
     (err, teams) => {
@@ -33,7 +33,11 @@ const getTeams = async (req, res, next) => {
               photoColor: team.Photo_Color__c,
               league: team.League__c,
               conference: team.Conference__c,
-              division: team.Division__c
+              division: team.Division__c,
+              stadium: team.Stadium__c,
+              address: team.Stadium_Address__c,
+              location: team.Stadium_Location__c,
+              capacity: team.Capacity__c
             };
           })
         });
