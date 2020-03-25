@@ -78,6 +78,7 @@ const getTeamsWithAffiliates = async (req, res, next) => {
           return {
             id: team.Id,
             name: team.Name,
+            url: team.Name.replace(/\s/g, ""),
             established: team.Established__c,
             photo: team.Photo__c,
             photoColor: team.Photo_Color__c,
@@ -88,6 +89,7 @@ const getTeamsWithAffiliates = async (req, res, next) => {
               return {
                 id: affiliate.Id,
                 name: affiliate.Name,
+                url: affiliate.Name.replace(/\s/g, ""),
                 established: affiliate.Established__c,
                 photo: affiliate.Photo__c,
                 photoColor: affiliate.Photo_Color__c,
