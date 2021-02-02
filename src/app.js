@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const teamsRoutes = require('./routes/teams-routes');
+const teamsRoutes = require('../routes/teams-routes');
 const HttpError = require('./http-error');
 
 const app = express();
@@ -30,4 +30,4 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || 'Unknown error occured!' });
 });
 
-app.listen(process.env.PORT || 5000);
+module.exports = app;

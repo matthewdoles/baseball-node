@@ -1,6 +1,6 @@
 const { login, soqlQuery, soqlQueryWithChildren } = require('jsforce-patterns');
 const { customSort } = require('../util/custom-sort');
-const HttpError = require('../http-error');
+const HttpError = require('../src/http-error');
 
 const getTeams = async (req, res, next) => {
   const conn = await login({
@@ -10,7 +10,9 @@ const getTeams = async (req, res, next) => {
 
   soqlQuery(
     conn,
-    'Baseball_Teams__c',
+    process.env.NODE_ENV == 'test'
+      ? process.env.TEST_TABLE
+      : 'Baseball_Teams__c',
     {
       fields:
         'Id, Name, Established__c, Photo__c, Photo_Color__c, League__c, Conference__c, Division__c, Stadium__c, Stadium_Location__c, Stadium_Address__c, Capacity__c',
@@ -54,7 +56,9 @@ const getTeamsWithAffiliates = async (req, res, next) => {
 
   soqlQueryWithChildren(
     conn,
-    'Baseball_Teams__c',
+    process.env.NODE_ENV == 'test'
+      ? process.env.TEST_TABLE
+      : 'Baseball_Teams__c',
     {
       fields:
         'Id, Name, Established__c, Photo__c, Photo_Color__c, League__c, Conference__c, Division__c',
@@ -69,7 +73,6 @@ const getTeamsWithAffiliates = async (req, res, next) => {
     },
     (err, teams) => {
       if (err) {
-        console.log(err);
         return next(
           new HttpError('Cannot retrieve teams, please try again.', 500)
         );
