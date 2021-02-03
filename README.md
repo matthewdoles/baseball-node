@@ -15,7 +15,7 @@ There are 30 teams in Major League Baseball, each one of those teams can have on
 
 #### Deployment
 
-This backend API is hosted on [Heroku](https://www.heroku.com/), and connected directly to this repository. Development is done on a develop branch, and then a deployment is kicked off on push to master.
+This backend API is hosted on [Heroku](https://www.heroku.com/), and connects directly to this repository. Development is done on a develop branch, and then a deployment is kicked off on push or merge to master.
 
 #### Database
 
@@ -41,4 +41,14 @@ The data is pulled from a table (Baseball_Teams\_\_c) on a personal Developer Ed
 
 ##### /teams/
 
+The default route ('/teams/') for the teams endpoint will call the getTeams method on the [team-controller.js](./controllers/team-controller.js) controller. The method will start by making a valid connection with the Salesforce instance where the data is stored. Once connected, the soqlQuery method is used to query all Baseball_Teams\_\_c records and order them alphabetically. In addition to returning the fields outlined in the database section for the JSON response, the method will also use the team name to create a valid url free of spaces, commas, slashes, etc. for the frontend to use for routing.
+
 ##### /teams/affiliates
+
+The affiliates route ('/teams/affiliates') for the teams endpoint will call the getTeamsWithAffiliates method on the [team-controller.js](./controllers/team-controller.js) controller. The method will start by making a valid connection with the Salesforce instance where the data is stored. Once connected, the soqlQueryWithChildren method is used to query all Baseball_Teams\_\_c records where the team's league is MLB, and then use the Affiliate\_\_c lookup to also query their affiliate teams. With that data, the method will format the JSON response similiarly to the way it does in the /teams/ route, but now each MLB team will include an array of their affiliate teams stored in a field similarly called affiliates. Each affiliate array item will contain all the same field information as outlined in the database section.
+
+#### Testing & CI
+
+The app is tested using the [Jest](https://jestjs.io/) testing framework in conjuntion with the [SuperTest](https://www.npmjs.com/package/supertest) package used for testing HTTP callouts. Tests can be found in the [test](./tests) folder.
+
+A simple [.travis.yml](.travis.yml) has also been setup to verify a valid build, execute any tests found, and then send the test coverage to [Coveralls](https://coveralls.io/github/matthewdoles/baseball-node?branch=master).
