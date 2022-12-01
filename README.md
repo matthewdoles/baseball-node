@@ -1,6 +1,6 @@
 # baseball-node
 
-[![Build Status](https://travis-ci.com/matthewdoles/baseball-node.svg?branch=master)](https://travis-ci.com/matthewdoles/baseball-node) [![Coverage Status](https://coveralls.io/repos/github/matthewdoles/baseball-node/badge.svg?branch=master)](https://coveralls.io/github/matthewdoles/baseball-node?branch=master)
+[![Build Status](https://travis-ci.com/matthewdoles/baseball-node.svg?branch=main)](https://travis-ci.com/matthewdoles/baseball-node) [![Coverage Status](https://coveralls.io/repos/github/matthewdoles/baseball-node/badge.svg?branch=main)](https://coveralls.io/github/matthewdoles/baseball-node?branch=main)
 
 ### Description
 
@@ -10,12 +10,8 @@ There are 30 teams in Major League Baseball, each one of those teams can have on
 
 #### Endpoints
 
-- All Teams: [baseball-affiliates.herokuapp.com/teams/](https://baseball-affiliates.herokuapp.com/teams/)
-- MLB Teams w/ Affiliates: [baseball-affiliates.herokuapp.com/teams/affiliates](https://baseball-affiliates.herokuapp.com/teams/affiliates)
-
-#### Deployment
-
-This backend API is hosted on [Heroku](https://www.heroku.com/), and connects directly to this repository. Development is done on a develop branch, and then a deployment is kicked off on push or merge to master.
+- All Teams: [baseball-node.onrender.com/teams](https://baseball-node.onrender.com/teams)
+- MLB Teams w/ Affiliates: [baseball-node.onrender.com/teams/affiliates](https://baseball-node.onrender.com/teams/affiliates)
 
 #### Database
 
@@ -51,4 +47,4 @@ The affiliates route ('/teams/affiliates') for the teams endpoint will call the 
 
 The app is tested using the [Jest](https://jestjs.io/) testing framework in conjuntion with the [SuperTest](https://www.npmjs.com/package/supertest) package used for testing HTTP callouts. Tests can be found in the [test](./tests) folder.
 
-A simple [.travis.yml](.travis.yml) has also been setup to verify a valid build, execute any tests found, and then send the test coverage to [Coveralls](https://coveralls.io/github/matthewdoles/baseball-node?branch=master).
+A simple [.travis.yml](.travis.yml) has also been setup to verify a valid build, execute any tests found, and then send the test coverage to [Coveralls](https://coveralls.io/github/matthewdoles/baseball-node?branch=main).
